@@ -1,120 +1,52 @@
 Overview
-
-This project shows how to build a Retrieval-Augmented Generation (RAG) chatbot from scratch using document processing, embeddings, vector search, and a conversational AI model.
-
-⚙️ Setup & Code Creation
-1️⃣ Initialize Project
-mkdir rag-chatbot
-cd rag-chatbot
-npm init -y
-2️⃣ Install Dependencies
-npm install langchain @google/generative-ai @langchain/mistralai dotenv
-3️⃣ Configure Environment Variables
-
-Create a .env file:
-
-GOOGLE_API_KEY=your_google_api_key
-MISTRAL_API_KEY=your_mistral_api_key
-4️⃣ Create Main File
-
-Create index.js and add the following code:
-
-🧠 Full Implementation Code
-import dotenv from "dotenv";
-dotenv.config();
-
-import { TextLoader } from "langchain/document_loaders/fs/text";
-import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
-import { MemoryVectorStore } from "langchain/vectorstores/memory";
-import { ChatMistralAI } from "@langchain/mistralai";
-import { ConversationalRetrievalQAChain } from "langchain/chains";
-
-async function runRAG() {
-  // 1. Load document
-  const loader = new TextLoader("data/ai_ethics.txt");
-  const docs = await loader.load();
-
-  // 2. Split text
-  const splitter = new RecursiveCharacterTextSplitter({
-    chunkSize: 1000,
-    chunkOverlap: 200,
-  });
-  const splitDocs = await splitter.splitDocuments(docs);
-
-  // 3. Create embeddings
-  const embeddings = new GoogleGenerativeAIEmbeddings({
-    modelName: "gemini-embedding-001",
-  });
-
-  // 4. Store in vector DB
-  const vectorStore = await MemoryVectorStore.fromDocuments(
-    splitDocs,
-    embeddings
-  );
-
-  // 5. Initialize LLM
-  const model = new ChatMistralAI({
-    apiKey: process.env.MISTRAL_API_KEY,
-    modelName: "mistral-tiny",
-    temperature: 0.9,
-  });
-
-  // 6. Create RAG chain
-  const chain = ConversationalRetrievalQAChain.fromLLM(
-    model,
-    vectorStore.asRetriever(),
-    {
-      returnSourceDocuments: true,
-    }
-  );
-
-  // 7. Ask question
-  const chatHistory = [];
-
-  const response = await chain.call({
-    question: "What is AI ethics?",
-    chat_history: chatHistory,
-  });
-
-  console.log(response.text);
-}
-
-runRAG();
-📂 Project Structure
-rag-chatbot/
-│── data/
-│   └── ai_ethics.txt
-│── index.js
-│── .env
-│── package.json
-🚀 Run the Code
-node index.js
-🧠 How It Works
-Load document
-Split into chunks
-Convert chunks → embeddings
-Store embeddings in vector database
-Retrieve relevant chunks on query
-Pass context to LLM
-Generate final response
-📊 Key Parameters
+This project showcases the creation of a document-driven conversational AI system using the RAG framework in Flowise. It processes uploaded files, converts their content into embeddings, stores them in a vector database, and uses a language model to generate answers based on the most relevant retrieved information.
+🚀 Key Features
+Upload and process documents easily
+Ask context-aware questions
+Semantic search using embeddings
+Maintains conversation history
+Fast retrieval with in-memory storage
+Built using Flowise’s visual interface
+🛠️ Tech Stack
+Flowise
+Google Gemini Embeddings
+Mistral AI
+Recursive Character Text Splitter
+File Loader
+In-Memory Vector Store
+Buffer Memory
+Conversational Retrieval QA Chain
+🧩 Workflow
+The chatbot pipeline consists of the following components:
+Recursive Character Text Splitter
+Breaks documents into smaller chunks
 Chunk Size: 1000
 Chunk Overlap: 200
+File Loader
+Imports the document into the system
+Google Gemini Embeddings
+Model: gemini-embedding-001
+Task Type: RETRIEVAL_DOCUMENT
+In-Memory Vector Store
+Stores embeddings for fast retrieval
+Top K: 4
+Mistral AI
+Model: mistral-tiny
 Temperature: 0.9
-Retrieval: Top relevant chunks
-📈 Future Improvements
-Use FAISS / Pinecone (persistent DB)
-Add UI (React / Streamlit)
-Support multiple documents
-Deploy as API
-🎯 Key Learning
-
-This project demonstrates how to:
-
-Build a complete RAG pipeline
-Improve AI accuracy using retrieval
-Reduce hallucination in LLMs
-👩‍💻 Author
+Buffer Memory
+Keeps track of conversation history
+Conversational Retrieval QA Chain
+Integrates retriever, memory, and LLM
+Generates context-aware responses
+⚙️ Working Process
+The user uploads a document via the File Loader
+The content is split into chunks using the Text Splitter
+Each chunk is transformed into embeddings with Gemini Embeddings
+These embeddings are stored in the Vector Store
+When a query is asked:
+Relevant chunks are retrieved
+Mistral AI generates a response based on context
+Buffer Memory ensures conversational continuity.
+Author
 
 Vanshika
