@@ -4,13 +4,13 @@ A smart *Retrieval-Augmented Generation (RAG) Chatbot* built using *Flowise* tha
 
 ---
 
-## 📌 Overview
+ Overview
 
 This project demonstrates how to build a *document-based conversational AI system* using the RAG architecture in Flowise. It processes uploaded documents, converts them into embeddings, stores them in a vector store, and uses an LLM to answer user queries based on retrieved context.
 
 ---
 
-## 🚀 Features
+ Features
 
 - Upload and analyze documents
 - Context-aware question answering
@@ -21,7 +21,7 @@ This project demonstrates how to build a *document-based conversational AI syste
 
 ---
 
-## 🛠️ Technologies Used
+Technologies Used
 
 - *Flowise*
 - *Google Gemini Embeddings*
@@ -34,7 +34,7 @@ This project demonstrates how to build a *document-based conversational AI syste
 
 ---
 
-## 🧩 Workflow
+ Workflow
 
 The chatbot flow includes the following components:
 
@@ -68,7 +68,7 @@ The chatbot flow includes the following components:
 
 ---
 
-## ⚙️ How It Works
+ How It Works
 
 1. A document is uploaded using the *File Loader*
 2. The text is split into chunks using the *Recursive Character Text Splitter*
@@ -81,7 +81,7 @@ The chatbot flow includes the following components:
 
 ---
 
-## 📂 Project Structure
+ Project Structure
 
 ```bash
 RAG-Chatbot-Flowise/
