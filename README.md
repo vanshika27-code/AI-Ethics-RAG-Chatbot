@@ -64,6 +64,7 @@ The chatbot flow includes the following components:
 7. *Conversational Retrieval QA Chain*
    - Combines retriever, memory, and language model
    - Produces context-based answers
+<img width="1847" height="873" alt="rag" src="https://github.com/user-attachments/assets/09ff2c57-7489-4821-b419-e6419fa68312" />
 
 ---
 
@@ -88,3 +89,11 @@ RAG-Chatbot-Flowise/
 │── RAG CHATBOT Chatflow.json
 │── screenshot.png
 │── sample-document.pdf
+This project demonstrates how to:
+
+Build a complete RAG pipeline
+Improve AI accuracy using retrieval
+Reduce hallucination in LLMs
+👩‍💻 Author
+
+Vanshika
